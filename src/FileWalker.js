@@ -20,7 +20,7 @@ let walk = dir => {
         .to(dirs);
 
     return readsIfDir.else
-        .pluck('file');
+        .map(({dir, file}) => {dir, file}); // todo replace with .pluck('dir', 'file'), when bs-better-stream supports multi-argument pluck
 };
 
 module.exports = {walk};
