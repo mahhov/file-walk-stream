@@ -1,5 +1,5 @@
-const {walk} = require('./src/FileWalker');
+const {walk, walkBig} = require('./src/FileWalker');
 
 const walkArray = dir => walk(dir).outValues;
 
-module.exports = {walk, walkArray};
+module.exports = {walk, walkArray, walkBig};

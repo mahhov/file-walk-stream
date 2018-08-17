@@ -24,4 +24,24 @@ let walk = root => {
         .set('fullPath', ({dir}) => fileRepo.getFullPath(dir));
 };
 
-module.exports = {walk};
+let walkBig = (root, callback) => {
+  let helper = localDir => {
+    let dir = fileRepo.getPath(root, localDir);
+    fileRepo.readDir(dir).then(files => {
+      for (let i = 0; i < files.length; i++) {
+        let file = files[i];
+        fileRepo.isDir(dir, file).then(isDir => {
+          if (isDir) {
+            helper(fileRepo.getPath(localDir, file));
+          } else {
+            let fullPath = fileRepo.getFullPath(dir);
+            callback({localDir, dir, file, isDir, fullPath});
+          }
+        }).catch(err => console.log('isDir err', err));
+      }
+    }).catch(err => console.log('readDir err', err));
+  };
+  helper('.');
+};
+
+module.exports = {walk, walkBig};

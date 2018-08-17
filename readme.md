@@ -1,15 +1,16 @@
 ### useage
 
 ```js
-const {walk, walkArray} = require('file-walk-stream');
+const {walk, walkArray walkBig} = require('file-walk-stream');
 
 let myDir = walk('./myDir');
 let myDirArray = walkArray('./myDir');
+walkBig('./myDir', callback);
 ```
 
-`myDir` will be a stream, and `myDirArray` will be an array.
+`myDir` will be a stream, and `myDirArray` will be an array. `walkBig(...)` does not return anything, but will instead invoke the callback with each file found. `walkBig` is recommended when traversing big file systems.
 
-they will be filled asynchronously and look as follows
+outputs will be filled asynchronously and look as follows
 
 ```js
 [{
@@ -76,6 +77,7 @@ they will be filled asynchronously and look as follows
     fullPath: '/usr/local/.../personal/fileWalkStream/.git'
   }]
 ```
+
 ### about paths
 
 `localDir` is relative to search path provided.
