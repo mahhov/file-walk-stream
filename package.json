@@ -14,7 +14,13 @@
     "type": "git",
     "url": "git+https://github.com/mahhov/file-walk-stream.git"
   },
-  "keywords": ["stream", "file", "dir", "walk", "traverse"],
+  "keywords": [
+    "stream",
+    "file",
+    "dir",
+    "walk",
+    "traverse"
+  ],
   "author": "mahhov",
   "license": "ISC",
   "bugs": {
