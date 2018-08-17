@@ -1,6 +1,6 @@
 {
   "name": "file-walk-stream",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "asynchronously traverses a directory structure and returns all files in a stream",
   "main": "index.js",
   "dependencies": {
