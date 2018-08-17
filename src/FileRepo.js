@@ -18,6 +18,8 @@ let isDir = (dir, file) => {
 };
 
 let getPath = (dir, file) =>
-    path.resolve(dir, file);
+    path.join(dir, file);
 
-module.exports = {readDir, isDir, getPath};
+let getFullPath = dir => path.resolve(dir);
+
+module.exports = {readDir, isDir, getPath, getFullPath};
