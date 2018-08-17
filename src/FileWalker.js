@@ -1,13 +1,14 @@
 const $tream = require('bs-better-stream');
 const fileRepo = require('./FileRepo');
 
-let walk = dir => {
+let walk = root => {
     let dirs = $tream();
 
-    dirs.write(dir);
+    dirs.write('.');
 
     let readsIfDir = dirs
-        .wrap('dir')
+        .wrap('localDir')
+        .set('dir', ({localDir}) => fileRepo.getPath(root, localDir))
         .set('files', ({dir}) => fileRepo.readDir(dir))
         .waitOn('files')
         .flattenOn('files', 'file')
@@ -16,11 +17,11 @@ let walk = dir => {
         .if(({isDir}) => isDir);
 
     readsIfDir.then
-        .map(({dir, file}) => fileRepo.getPath(dir, file))
+        .map(({localDir, file}) => fileRepo.getPath(localDir, file))
         .to(dirs);
 
     return readsIfDir.else
-        .map(({dir, file}) => ({dir, file, fullPath: fileRepo.getFullPath(dir)}));
+        .set('fullPath', ({dir}) => fileRepo.getFullPath(dir));
 };
 
 module.exports = {walk};

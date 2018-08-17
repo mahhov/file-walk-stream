@@ -9,46 +9,83 @@ let myDirArray = walkArray('./myDir');
 
 `myDir` will be a stream, and `myDirArray` will be an array.
 
-they will be filled asynchronously
+they will be filled asynchronously and look as follows
 
 ```js
 [{
-  dir: '.',
+  localDir: '.',
+  dir: 'personal/fileWalkStream',
   file: '.gitignore',
-  fullPath: '/usr/local/.../fileWalkStream'
-}, {
-  dir: '.',
-  file: 'index.js',
-  fullPath: '/usr/local/.../fileWalkStream'
-}, {
-  dir: '.',
-  file: 'package-lock.json',
-  fullPath: '/usr/local/.../fileWalkStream'
-}, {
-  dir: '.',
-  file: 'package.json',
-  fullPath: '/usr/local/.../fileWalkStream'
-}, {
-  dir: '.',
-  file: 'readme.md',
-  fullPath: '/usr/local/.../fileWalkStream'
-}, {
-  dir: '.git',
-  file: 'COMMIT_EDITMSG',
-  fullPath: '/usr/local/.../fileWalkStream/.git'
-}, {
-  dir: '.git',
-  file: 'HEAD',
-  fullPath: '/usr/local/.../fileWalkStream/.git'
-}, {
-  dir: '.git',
-  file: 'config',
-  fullPath: '/usr/local/.../fileWalkStream/.git'
-}, {
-  dir: '.git',
-  file: 'description',
-  fullPath: '/usr/local/.../fileWalkStream/.git'
-}]
+  isDir: false,
+  fullPath: '/usr/local/.../personal/fileWalkStream'
+},
+  {
+    localDir: '.',
+    dir: 'personal/fileWalkStream',
+    file: 'index.js',
+    isDir: false,
+    fullPath: '/usr/local/.../personal/fileWalkStream'
+  },
+  {
+    localDir: '.',
+    dir: 'personal/fileWalkStream',
+    file: 'package-lock.json',
+    isDir: false,
+    fullPath: '/usr/local/.../personal/fileWalkStream'
+  },
+  {
+    localDir: '.',
+    dir: 'personal/fileWalkStream',
+    file: 'package.json',
+    isDir: false,
+    fullPath: '/usr/local/.../personal/fileWalkStream'
+  },
+  {
+    localDir: '.',
+    dir: 'personal/fileWalkStream',
+    file: 'readme.md',
+    isDir: false,
+    fullPath: '/usr/local/.../personal/fileWalkStream'
+  },
+  {
+    localDir: '.',
+    dir: 'personal/fileWalkStream',
+    file: 'test.js',
+    isDir: false,
+    fullPath: '/usr/local/.../personal/fileWalkStream'
+  },
+  {
+    localDir: '.git',
+    dir: 'personal/fileWalkStream/.git',
+    file: 'COMMIT_EDITMSG',
+    isDir: false,
+    fullPath: '/usr/local/.../personal/fileWalkStream/.git'
+  },
+  {
+    localDir: '.git',
+    dir: 'personal/fileWalkStream/.git',
+    file: 'HEAD',
+    isDir: false,
+    fullPath: '/usr/local/.../personal/fileWalkStream/.git'
+  },
+  {
+    localDir: '.git',
+    dir: 'personal/fileWalkStream/.git',
+    file: 'config',
+    isDir: false,
+    fullPath: '/usr/local/.../personal/fileWalkStream/.git'
+  }]
 ```
+### about paths
+
+`localDir` is relative to search path provided.
+
+`dir` is relative to path of invocation.
+
+`fullPath` is absolute system path.
+
+If a script invokes `walk('mySearchPath');`, and the script is located in `myScriptPath`, then `localDir` will be relative to `mySearchPath`, and `dir` will be relative to `myScriptPath`.
+
+### walk v walkArray
 
 see `bs-better-stream` for more information on the stream structure.
