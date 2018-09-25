@@ -20,6 +20,9 @@ let isDir = (dir, file) => {
 let getPath = (dir, file) =>
     path.join(dir, file);
 
+let getRoot = root =>
+    path.resolve(path.dirname(process.argv[1]), root);
+
 let getFullPath = dir => path.resolve(dir);
 
-module.exports = {readDir, isDir, getPath, getFullPath};
+module.exports = {readDir, isDir, getPath, getRoot, getFullPath};

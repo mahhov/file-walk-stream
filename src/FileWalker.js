@@ -2,6 +2,8 @@ const $tream = require('bs-better-stream');
 const fileRepo = require('./FileRepo');
 
 let walk = root => {
+    root = fileRepo.getRoot(root);
+
     let dirs = $tream();
 
     dirs.write('.');
@@ -25,15 +27,17 @@ let walk = root => {
 };
 
 let walkBig = (root, callback) => {
+  root = fileRepo.getRoot(root);
+
   let helper = localDir => {
     let dir = fileRepo.getPath(root, localDir);
     fileRepo.readDir(dir).then(files => {
       for (let i = 0; i < files.length; i++) {
         let file = files[i];
         fileRepo.isDir(dir, file).then(isDir => {
-          if (isDir) {
+          if (isDir)
             helper(fileRepo.getPath(localDir, file));
-          } else {
+          else {
             let fullPath = fileRepo.getFullPath(dir);
             callback({localDir, dir, file, isDir, fullPath});
           }
@@ -41,6 +45,7 @@ let walkBig = (root, callback) => {
       }
     }).catch(err => console.log('readDir err', err));
   };
+
   helper('.');
 };
 
