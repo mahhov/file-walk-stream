@@ -82,11 +82,11 @@ outputs will be filled asynchronously and look as follows
 
 `localDir` is relative to search path provided.
 
-`dir` is relative to path of invocation.
-
 `fullPath` is absolute system path.
 
-If a script invokes `walk('mySearchPath');`, and the script is located in `myScriptPath`, then `localDir` will be relative to `mySearchPath`, and `dir` will be relative to `myScriptPath`.
+`dir` is usually (always?) the same as `fullPath`, and is no longer meant for external use.
+
+If a script invokes `walk('mySearchPath');`, and the script is located in `myScriptPath`, then `localDir` will be relative to `mySearchPath`.
 
 ### walk v walkArray
 
