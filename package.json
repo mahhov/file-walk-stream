@@ -4,7 +4,7 @@
   "description": "asynchronously traverses a directory structure and returns all files in a stream",
   "main": "index.js",
   "dependencies": {
-    "bs-better-stream": "^1.0.0"
+    "bs-better-stream": "^1.7.0"
   },
   "devDependencies": {},
   "scripts": {
