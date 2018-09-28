@@ -1,5 +1,18 @@
-const {walk} = require('./src/FileWalker');
+const {walk} = require('./index');
 
 let a = walk('.');
 
-setTimeout(() => console.log(a), 1000);
+let print = prefix => console.log(prefix, a.length, a.complete);
+
+print('immediate:')
+
+let x = setInterval(() => {
+  print('interval:');
+}, 1);
+
+a.complete.then(() => {
+  print('resolved:');
+  clearInterval(x)
+});
+
+// find . -type f | wc -l

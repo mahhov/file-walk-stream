@@ -1,7 +1,16 @@
 const $tream = require('bs-better-stream');
+const PromiseCreator = require('./PromiseCreator');
 const fileRepo = require('./FileRepo');
 
 let walk = root => {
+    let pendingPromise = new PromiseCreator();
+    let pending = 1;
+    let changePending = delta => {
+      pending += delta;
+      if (!pending)
+        pendingPromise.resolve();
+    };
+
     root = fileRepo.getRoot(root);
 
     let dirs = $tream();
@@ -13,6 +22,7 @@ let walk = root => {
         .set('dir', ({localDir}) => fileRepo.getPath(root, localDir))
         .set('files', ({dir}) => fileRepo.readDir(dir))
         .waitOn('files')
+        .each(({files}) => changePending(files.length - 1))
         .flattenOn('files', 'file')
         .set('isDir', ({dir, file}) => fileRepo.isDir(dir, file))
         .waitOn('isDir')
@@ -22,8 +32,13 @@ let walk = root => {
         .map(({localDir, file}) => fileRepo.getPath(localDir, file))
         .to(dirs);
 
-    return readsIfDir.else
-        .set('fullPath', ({dir}) => fileRepo.getFullPath(dir));
+    readsIfDir.else
+        .set('fullPath', ({dir}) => fileRepo.getFullPath(dir))
+        .each(() => changePending(-1));
+
+    readsIfDir.else.complete = pendingPromise.promise.then(() => readsIfDir.else);
+
+    return readsIfDir.else;
 };
 
 let walkBig = (root, callback) => {
