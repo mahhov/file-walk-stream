@@ -1,4 +1,4 @@
-const {walk} = require('./index');
+const {walk} = require('../index');
 
 let a = walk('.');
 

@@ -20,7 +20,7 @@ let walk = root => {
     let readsIfDir = dirs
         .wrap('localDir')
         .set('dir', ({localDir}) => fileRepo.getPath(root, localDir))
-        .set('files', ({dir}) => fileRepo.readDir(dir))
+        .set('files', ({dir}) => fileRepo.readDir(dir).catch(() => []))
         .waitOn('files')
         .each(({files}) => changePending(files.length - 1))
         .flattenOn('files', 'file')

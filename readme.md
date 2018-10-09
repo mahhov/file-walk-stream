@@ -21,7 +21,7 @@ const {walk, walkArray, walkBig} = require('file-walk-stream');
 
 let myDirArray = walkArray('./myDir');
 setTimeout(() => {
-  myDirArray.forEach(file => console.log(`uve got a file, ${file.file}`));
+  myDirArray.each(file => console.log(`uve got a file, ${file.file}`));
   console.log(`total # ${myDirArray.length}`);
 }, 1000);
 ```
